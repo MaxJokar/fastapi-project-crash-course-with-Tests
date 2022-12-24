@@ -10,6 +10,7 @@ router = APIRouter(prefix="/Item", tags=["Items To buy "])
 get_db = database.get_db
 
 
+# Get All Items and their Buyers with their names, family etc
 @router.get("/with Buyer's Information /", response_model=list[schemas.ShowItem])
 def all(
     db: Session = Depends(get_db),
@@ -20,6 +21,7 @@ def all(
     # Refoactored : Reffer to => item.repository.item
 
 
+# Create a new Item in DB
 @router.post(
     "/",
     status_code=status.HTTP_201_CREATED,
@@ -31,8 +33,10 @@ def create(
 ):
 
     return item.create(request, db)
-# ==========================================================================
 
+
+# ==========================================================================
+# Delete required Item from DB
 @router.delete("/{id} ", status_code=status.HTTP_204_NO_CONTENT)
 def destroy(
     id: int,
@@ -53,7 +57,9 @@ def update(
 
     return item.update(id, request, db)
 
+
 # ==========================================================================
+# Gives info about only One  specific  item and  its Buyer
 @router.get("/{id}", status_code=200, response_model=schemas.ShowItem)
 def show(
     id: int,

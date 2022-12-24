@@ -20,19 +20,19 @@ def create(request: schemas.Buyer, db: Session):
         name=request.name,
         email=request.email,
         password=request.password,
-        # password=Hash.bcrypt(request.password),
+        # For hashing password: password=Hash.bcrypt(request.password),
     )
-    db.add(new_buyer)
+    db.add(new_buyer)  # new_buyer is added , committed and refresh in DB
     db.commit()
     db.refresh(new_buyer)
     return new_buyer
 
 
 def show(id: int, db: Session):
-    new_buyer = db.query(models.Buyer).filter(models.Buyer.id == id).first()
-    if not new_buyer:
+    get_buyer_information = db.query(models.Buyer).filter(models.Buyer.id == id).first()
+    if not get_buyer_information:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Buyer with id {id} not available",
         )
-    return new_buyer
+    return get_buyer_information

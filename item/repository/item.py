@@ -30,7 +30,7 @@ def destroy(id: int, db: Session):
     if not del_item.first():
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Item with id {id} not found",
+            detail=f"Item with id {del_item} not found",
         )
     del_item.delete(synchronize_session=False)
     db.commit()
@@ -39,11 +39,11 @@ def destroy(id: int, db: Session):
 
 def update(id: int, request: schemas.Item, db: Session):
     up_item_id = db.query(models.Item).filter(models.Item.id == id)
-    if not up_item_id.first():
 
+    if not up_item_id.first():
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Blog with id {id} not found",
+            detail=f"Blog with id {up_item_id} not found",
         )
     up_item_id.update(request)
     up_item_id.commit()
@@ -55,9 +55,10 @@ def update(id: int, request: schemas.Item, db: Session):
 
 def show(id: int, db: Session):
     show_blog_id = db.query(models.Item).filter(models.Item.id == id).first()
+
     if not show_blog_id:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Blog with the id {id} is not available",
+            detail=f"Blog with the id {show_blog_id} is not available",
         )
     return show_blog_id

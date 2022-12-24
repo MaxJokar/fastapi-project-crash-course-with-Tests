@@ -1,5 +1,6 @@
 """
 Definition of  Dependency get_current_user
+without Authorization the Use can not delete, add , post etc
 """
 
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -14,7 +15,7 @@ from item import token
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 
-async def get_current_user(data: str = Depends(oauth2_scheme)):
+async def get_current_buyer(data: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
