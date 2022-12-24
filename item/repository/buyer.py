@@ -1,10 +1,9 @@
 from sqlalchemy.orm import Session
 from item import models, schemas, database
 from fastapi import HTTPException, status
+from item.hashing import Hash
 
-# from item.hashing import Hash
 ENDPOINT = "http://localhost:8000/docs"
-# ENDPOINT = "http://localhost:8000/docs"
 
 
 def get_all(db: Session):
