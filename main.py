@@ -1,7 +1,15 @@
+"""
+The Item refers to  Products for sale and Buyer as our Regular Customer/Customers we
+are collecting Data about Our Customer's data (name, email etc) &the Products their Purchase
+such as : name,brand, price etc.manually or as a group in Swagger visible their datas.
+
+"""
+
 from fastapi import FastAPI
 from item.database import engine
 from item.routers import item, buyer, authentication
 from item import models
+
 
 app = FastAPI()
 # create all the models into DB(table)
